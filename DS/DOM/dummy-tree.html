@@ -1,0 +1,60 @@
+<html>
+  <head></head>
+
+  <body>
+    <div id="root1">
+      <div class="a">
+        <div class="b">
+          <div class="c"></div>
+        </div>
+        <div class="d">
+          <div class="e"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="root2">
+      <span id="a">
+        <span id="b">
+          <span id="c"></span>
+        </span>
+        <span id="d">
+          <span id="e"></span>
+        </span>
+      </span>
+    </div>
+  </body>
+  <script>
+    // Consumer app code starts
+    const tree1 = document.getElementById("root1");
+    const tree2 = document.getElementById("root2");
+    const elementToFindInTree1 = document.getElementsByClassName("b")[0];
+
+    const helper = (element) => element == elementToFindInTree1;
+
+    function traverse(tree1, tree2, cb) {
+      function inner(tree1, tree2) {
+        if (cb(tree1, tree2)) {
+          return tree2;
+        }
+
+        const childOfTree1 = tree1.children;
+        const childOfTree2 = tree2.children;
+
+        if (childOfTree1) {
+          for (let i = 0; i < childOfTree1.length; i++) {
+            const ele = inner(childOfTree1[i], childOfTree2[i]);
+            if (ele) {
+              return ele;
+            }
+          }
+        }
+      }
+
+      return inner(tree1, tree2);
+    }
+
+    const ele = traverse(tree1, tree2, helper);
+    console.log(ele, "ele");
+  </script>
+</html>

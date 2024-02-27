@@ -1,0 +1,84 @@
+<html>
+
+<body>
+    <script>
+        class ButtonSort {
+            #indexTracker = [];
+            #buttonArry = [];
+            #sofrtAfterClickCount = 0;
+            #counter = 0;
+            constructor(buttons, sofrtAfterClickCount) {
+                this.#sofrtAfterClickCount = sofrtAfterClickCount;
+
+                for (let i = 0; i < buttons.length; i++) {
+                    this.#buttonArry.push({ name: buttons[i], clickCount: 0 });
+                    this.#indexTracker.push(buttons[i]);
+                }
+                this.#counter = 1;
+            }
+
+            clickHandler = (key, cb) => {
+                const index = this.#indexTracker.indexOf(key);
+                if (index > -1) {
+                    this.#buttonArry[index].clickCount += 1
+                    this.#counter++;
+                }
+
+                if (this.#counter % this.#sofrtAfterClickCount === 0) {
+                    this.sort(this.#buttonArry);
+                    this.setIndexTracker(this.#buttonArry);
+                    this.#counter = 0;
+                    cb(this.#indexTracker);
+                }
+
+            }
+
+            sort = (ary) => {
+                ary.sort((a, b) => b.clickCount - a.clickCount);
+            }
+
+            setIndexTracker = (ary) => {
+                const indexTracker = []
+                for (let i = 0; i < ary.length; i++) {
+                    indexTracker.push(ary[i].name);
+                }
+
+                this.#indexTracker = indexTracker;
+            }
+
+            getIndexTracker = (ary) => {
+                return this.#indexTracker;
+            }
+        }
+
+        const buttons = ['tea', 'coffee', 'water'];
+        const buttonSorter = new ButtonSort(buttons, 10);
+
+        const cb = (ary) => {
+            renderer(ary);
+        }
+
+        const click = (key) => {
+            buttonSorter.clickHandler(key, cb);
+        }
+
+        function renderer(buttons) {
+            document.body.innerHTML = '';
+            const freg = document.createDocumentFragment();
+            for (let i = 0; i < buttons.length; i++) {
+                const button = document.createElement('button');
+                button.onclick = (e) => {
+                    click(buttons[i]);
+                };
+                button.innerText = buttons[i];
+                freg.appendChild(button);
+            }
+            document.body.append(freg);
+        }
+
+        renderer(buttons);
+
+        ;</script>
+</body>
+
+</html>

@@ -1,0 +1,446 @@
+<html>
+  <head>
+    <title>CSS Flash of Unstyled Content</title>
+    <!-- <link
+      rel="preload"
+      as="style"
+      href="https://stevesouders.com/bin/sleep.cgi?type=css&sleep=1&expires=-1&last=0"
+    /> -->
+
+    <style>
+      /* Yahoo! CSS reset ... see developer.yahoo.com/yui for details */
+      body,
+      div,
+      dl,
+      dt,
+      dd,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      pre,
+      form,
+      fieldset,
+      input,
+      blockquote,
+      th,
+      td {
+        margin: 0;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      fieldset,
+      img {
+        border: 0;
+      }
+      address,
+      caption,
+      cite,
+      code,
+      dfn,
+      em,
+      strong,
+      th,
+      var {
+        font-style: normal;
+        font-weight: normal;
+      }
+      caption,
+      th {
+        text-align: left;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: 100%;
+      }
+      q:before,
+      q:after {
+        content: "";
+      }
+      /* Yahoo! font reset ... see developer.yahoo.com/yui for details */
+      body {
+        font: 13px arial, helvetica, clean, sans-serif;
+        *font-size: small;
+        *font: x-small;
+      }
+      table {
+        font-size: inherit;
+        font: 100%;
+      }
+      select,
+      input,
+      textarea {
+        font: 99% arial, helvetica, clean, sans-serif;
+      }
+      pre,
+      code {
+        font: 115% monospace;
+        *font-size: 100%;
+      }
+      body * {
+        line-height: 1.22em;
+      }
+      cite span {
+        float: right;
+        padding: 8px;
+      }
+      cite {
+        border-top: 1px solid #00a9a9;
+        display: block;
+        font-size: 87%;
+        padding: 10px;
+      }
+
+      BODY {
+        padding: 0px;
+        margin: 0px;
+        font-family: Arial, Helvetica;
+        font-size: 11pt;
+      }
+      .header {
+        padding: 10px;
+        background: #00a9a9;
+        color: #fff;
+        font-family: Times, serif;
+        font-size: 200%;
+      }
+      .subheader {
+        padding: 4px 10px 4px 10px;
+        background: #fff;
+        font-size: 1.2em;
+      }
+      .footer {
+        padding: 0 10px 10px 0px;
+        font-size: 8pt;
+      }
+      .rulenav {
+        float: right;
+        padding: 8px;
+        padding-top: 20px;
+        valign: bottom;
+      }
+      .exnav {
+        float: right;
+        padding: 8px;
+        padding-top: 2px;
+      }
+      .content {
+        padding: 10px;
+        background: #ffffff;
+        text-align: left;
+      }
+      .exheader {
+        padding: 10px 10px 10px 0;
+        font-size: 1.6em;
+      }
+      A {
+        color: #550055;
+      }
+      .ahover,
+      ahover:visited {
+        text-decoration: none;
+        color: #550055;
+      }
+      .ahover:hover {
+        text-decoration: underline;
+        color: #550055;
+      }
+      A.example {
+        color: #000;
+        text-decoration: none;
+        padding: 2px;
+        font-size: 1em;
+      }
+      A.example:visited {
+        color: #222;
+        text-decoration: none;
+        padding: 2px;
+      }
+      A.example:hover {
+        background: #e6f1ff;
+        text-decoration: underline;
+      }
+      .pagetitle {
+        font-size: 1.8em;
+        font-weight: bold;
+      }
+      .codesample {
+        border: 1px solid #666;
+        padding: 10px;
+        font-family: Courier;
+        background: #eee;
+        margin: 4px 30px 4px 50px;
+      }
+      span.takeaway {
+        border: 2px solid #00388c;
+        padding: 10px;
+        font-weight: bold;
+        background: #ecf3ff;
+      }
+      p.takeaway {
+        margin: 30px 0 20px 0;
+        text-align: center;
+      }
+      p.browsers {
+        font-weight: bold;
+        margin-bottom: -10px;
+      }
+
+      .navlink {
+        font-size: 8pt;
+        font-weight: bold;
+        font-family: Arial, Helvetica;
+        text-decoration: none;
+        border: 1px solid #00a9a9;
+        color: #fff;
+      }
+      .navlink:visited {
+        font-family: Arial, Helvetica;
+        text-decoration: none;
+      }
+      .navlink:hover {
+        font-family: Arial, Helvetica;
+        border: 1px solid #705;
+      }
+
+      .navlinksel {
+        font-family: Arial, Helvetica;
+        font-size: 8pt;
+        font-weight: bold;
+        text-decoration: none;
+        border: 1px solid #705;
+        color: #705;
+      }
+
+      .exlink {
+        color: #00a9a9;
+        font-size: 8pt;
+        font-weight: bold;
+        text-decoration: none;
+        border: 1px solid #fff; /* transparent didn't work on IE */
+      }
+      .exlink:visited {
+        text-decoration: none;
+      }
+      .exlink:hover {
+        border: 1px solid #705;
+      }
+
+      .exlinksel {
+        font-size: 8pt;
+        font-weight: bold;
+        text-decoration: none;
+        border: 1px solid;
+      }
+
+      A.noline {
+        text-decoration: none;
+      }
+      A.noline:visited {
+        text-decoration: none;
+      }
+      A.noline:hover {
+        text-decoration: underline;
+      }
+      .rule {
+        font-weight: bold;
+        border: 1px solid #222;
+        background: #eee;
+        padding: 4px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://stevesouders.com/bin/sleep.cgi?type=css&sleep=1&expires=-1&last=0"
+    />
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="rulenav">
+        <a class="navlink" href="rules.php">&nbsp;Rules&nbsp;</a
+        ><a
+          class="navlink"
+          href="rule-min-http.php"
+          title="Make Fewer HTTP Requests"
+          >&nbsp;1&nbsp;</a
+        ><a
+          class="navlink"
+          href="rule-cdn.php"
+          title="Use a Content Delivery Network"
+          >&nbsp;2&nbsp;</a
+        ><a
+          class="navlink"
+          href="rule-expires.php"
+          title="Add an Expires Header"
+          >&nbsp;3&nbsp;</a
+        ><a class="navlink" href="rule-gzip.php" title="Gzip Components"
+          >&nbsp;4&nbsp;</a
+        ><a
+          class="navlinksel"
+          href="rule-css-top.php"
+          title="Put Stylesheets at the Top"
+          >&nbsp;5&nbsp;</a
+        ><a
+          class="navlink"
+          href="rule-js-bottom.php"
+          title="Put Scripts at the Bottom"
+          >&nbsp;6&nbsp;</a
+        ><a class="navlink" href="rule-expr.php" title="Avoid CSS Expressions"
+          >&nbsp;7&nbsp;</a
+        ><a
+          class="navlink"
+          href="rule-inline.php"
+          title="Make JavaScript and CSS External"
+          >&nbsp;8&nbsp;</a
+        ><a class="navlink" href="rule-dns.php" title="Reduce DNS Lookups"
+          >&nbsp;9&nbsp;</a
+        ><a class="navlink" href="rule-minify.php" title="Minify JavaScript"
+          >&nbsp;10&nbsp;</a
+        ><a class="navlink" href="rule-redir.php" title="Avoid Redirects"
+          >&nbsp;11&nbsp;</a
+        ><a
+          class="navlink"
+          href="rule-js-dupes.php"
+          title="Remove Duplicate Scripts"
+          >&nbsp;12&nbsp;</a
+        ><a class="navlink" href="rule-etags.php" title="Configure ETags"
+          >&nbsp;13&nbsp;</a
+        ><a class="navlink" href="rule-ajax.php" title="Make AJAX Cacheable"
+          >&nbsp;14&nbsp;</a
+        >
+      </div>
+      Rule 5 - Put Stylesheets at the Top
+    </div>
+
+    <div class="subheader">
+      <div class="exnav">
+        <a class="exlink" href="rule-css-top.php">&nbsp;Examples&nbsp;</a
+        ><a class="exlink" href="css-bottom.php" title="CSS at the Bottom"
+          >&nbsp;1&nbsp;</a
+        ><a class="exlink" href="css-top.php" title="CSS at the Top"
+          >&nbsp;2&nbsp;</a
+        ><a
+          class="exlink"
+          href="css-top-import.php"
+          title="CSS at the Top Using @import"
+          >&nbsp;3&nbsp;</a
+        ><a
+          class="exlinksel"
+          href="css-fouc.php"
+          title="CSS Flash of Unstyled Content"
+          >&nbsp;4&nbsp;</a
+        >
+      </div>
+      Example 4 - CSS Flash of Unstyled Content
+    </div>
+
+    <div class="content">
+      <!-- hold all content for the page -->
+
+      <p></p>
+      <div class="sleepcgi">
+        Putting stylesheets in the <code>HEAD</code> of your document not only
+        improves page load times, it also avoids the browser having to repaint
+        the page when later stylesheets are downloaded. This is called the Flash
+        of Unstyled Content (FOUC).
+
+        <p>
+          In this example the stylesheet is included at the bottom of the
+          document, but its css rules are used in the main part of the document.
+          The text is rendered and then after the stylesheet is downloaded the
+          entire page must be repainted to reflect the new styles. In IE this
+          only occurs when:
+        </p>
+
+        <ul style="margin-top: 0px">
+          <li>the URL is typed into the browser</li>
+          <li>
+            the URL is requested as a link - click
+            <a href="css-fouc.php">here</a>
+          </li>
+        </ul>
+
+        In Mozilla-based browsers it happens under all scenarios for loading a
+        page (typing the address, clicking a link, reloading a page, etc.).
+
+        <ol>
+          <li>
+            <img
+              src="/bin/sleep.cgi?type=gif&sleep=2&expires=-1&last=0&imagenum=1&t=1699339541"
+              height="20"
+            />
+          </li>
+          <li>
+            <img
+              src="/bin/sleep.cgi?type=gif&sleep=2&expires=-1&last=0&imagenum=2&t=1699339541"
+              height="20"
+            />
+          </li>
+          <li>
+            <img
+              src="/bin/sleep.cgi?type=gif&sleep=2&expires=-1&last=0&imagenum=3&t=1699339541"
+              height="20"
+            />
+          </li>
+          <li>
+            <img
+              src="/bin/sleep.cgi?type=gif&sleep=2&expires=-1&last=0&imagenum=4&t=1699339541"
+              height="20"
+            />
+          </li>
+          <li>
+            <img
+              src="/bin/sleep.cgi?type=gif&sleep=2&expires=-1&last=0&imagenum=5&t=1699339541"
+              height="20"
+            />
+          </li>
+          <li>
+            <img
+              src="/bin/sleep.cgi?type=gif&sleep=2&expires=-1&last=0&imagenum=6&t=1699339541"
+              height="20"
+            />
+          </li>
+        </ol>
+      </div>
+
+      <p class="takeaway">
+        <span class="takeaway">
+          Always put your stylesheets in the document <code>HEAD</code> using
+          the <code>LINK</code> tag.
+        </span>
+      </p>
+    </div>
+
+    <!-- close content div -->
+
+    <cite
+      ><span
+        ><a href="http://stevesouders.com/">stevesouders.com</a> |
+        <a href="http://stevesouders.com/contact.php">contact Steve</a></span
+      ><img
+        src="/images/greyhound_a_32x32.jpg"
+        height="32"
+        width="32"
+        alt="Greyhound, the 2nd fastest land animal"
+        align="absmiddle"
+        style="margin-right: 4px"
+      />This is the companion website for
+      <a
+        href="http://www.amazon.com/gp/product/0596529309?ie=UTF8&amp;tag=stevsoud-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596529309"
+        >High Performance Web Sites</a
+      >
+      by Steve Souders.</cite
+    >
+    <!-- <link rel="stylesheet" href="./some.css" /> -->
+  </body>
+</html>

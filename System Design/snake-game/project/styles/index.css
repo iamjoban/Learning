@@ -1,0 +1,20 @@
+.grid{
+    width: 440px;
+    border: 1px solid red;
+}
+.grid .cell {
+    height: 20px;
+    width: 20px;
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid transparent;
+    display: inline-block;
+}
+
+.grid .cell.snake {
+   background-color: green;
+}
+
+.grid .cell.eatable {
+    background-color: red;
+    border-radius: 50%;
+ }

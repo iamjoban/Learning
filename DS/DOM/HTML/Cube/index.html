@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>Cube</title>
+    <style>
+      .container {
+        height: 200px;
+        width: 200px;
+        perspective: 600px;
+      }
+      .container .cube {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        transform-style: preserve-3d;
+        transform: translateZ(-100px);
+      }
+
+      .container .cube .cube-face {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        font-size: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container .cube .cube-face.front {
+        background: hsla(0, 100%, 50%, 0.7);
+        transform: rotateY(0deg) translateZ(100px);
+      }
+      .container .cube .cube-face.right {
+        background: hsla(60, 100%, 50%, 0.7);
+        transform: rotateY(90deg) translateZ(100px);
+      }
+      .container .cube .cube-face.back {
+        background: hsla(120, 100%, 50%, 0.7);
+        transform: rotateY(180deg) translateZ(100px);
+      }
+      .container .cube .cube-face.left {
+        background: hsla(180, 100%, 50%, 0.7);
+        transform: rotateY(-90deg) translateZ(100px);
+      }
+      .container .cube .cube-face.top {
+        background: hsla(240, 100%, 50%, 0.7);
+        transform: rotateX(90deg) translateZ(100px);
+      }
+      .container .cube .cube-face.bottom {
+        background: hsla(300, 100%, 50%, 0.7);
+        transform: rotateX(-90deg) translateZ(100px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="cube">
+        <div class="cube-face front">Front</div>
+        <div class="cube-face back">Back</div>
+        <div class="cube-face left">Left</div>
+        <div class="cube-face right">Right</div>
+        <div class="cube-face top">Top</div>
+        <div class="cube-face bottom">bottom</div>
+      </div>
+    </div>
+  </body>
+</html>

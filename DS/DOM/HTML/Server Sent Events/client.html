@@ -1,0 +1,31 @@
+<body>
+  <button onclick="stop()">Stop</button>
+  <p id="p">Server Time:</p>
+  <script>
+    // const sse = new EventSource("http://localhost:2000/sse");
+
+    // sse.addEventListener("message", (data) => {
+    //   console.log(data, "sss");
+    // });
+
+    // sse.onmessage = (data) => {
+    //   console.log(data, "sss");
+    // };
+
+    const eventSource = new EventSource("http://localhost:2000/sse");
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      document.getElementById("p").innerHTML = data.message;
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("SSE Error:", error);
+      eventSource.close();
+    };
+
+    function stop() {
+      eventSource.close();
+    }
+  </script>
+</body>

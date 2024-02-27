@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: 100vh;
+      }
+      .item {
+        flex: 1 0 50%;
+        flex-direction: column;
+        display: flex;
+      }
+
+      .item span {
+        height: 100px;
+        width: 300px;
+        background-color: pink;
+        display: block;
+      }
+
+      .item:nth-child(2),
+      .item:nth-child(4) {
+        align-items: end;
+      }
+
+      .item:nth-child(3),
+      .item:nth-child(4) {
+        justify-content: end;
+      }
+    </style>
+    <div>
+      <div class="container">
+        <div class="item"><span>a</span></div>
+        <div class="item"><span>b</span></div>
+        <div class="item"><span>c</span></div>
+        <div class="item"><span>d</span></div>
+      </div>
+    </div>
+  </body>
+</html>

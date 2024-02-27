@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="./styles/index.css"/>
+  </head>
+    <body>
+      <div id="app"></div>
+      <script src="./src/services/board/index.js"></script>
+      <script src="./src/services/eatable/index.js"></script> 
+      <script src="./src/services/snake/index.js"></script>
+      <script src="./src/services/game/index.js"></script>
+
+      <script>
+        const game = new Game(document.getElementById('app'));
+        game.init();
+        game.render();
+      </script>
+    </body>
+  
+</html>

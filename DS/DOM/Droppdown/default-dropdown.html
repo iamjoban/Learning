@@ -1,0 +1,24 @@
+<html>
+
+<body>
+  <script>
+    let select = document.createElement('select');
+    let optionAry = document.createDocumentFragment();
+
+
+    for (let i = 0; i < 5; i++) {
+      let option = document.createElement('option');
+      option.value = i + 1;
+      option.innerHTML = i + 1;
+      optionAry.append(option);
+    }
+
+    select.onchange = (e) => {
+      console.log(e.target.value);
+    }
+    select.append(optionAry);
+    document.body.append(select);
+  </script>
+</body>
+
+</html>

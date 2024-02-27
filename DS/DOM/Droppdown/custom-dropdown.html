@@ -1,0 +1,170 @@
+<html>
+
+<style>
+  .dropdown-container {
+    width: 150px;
+  }
+
+  .dropdown-container .select {
+    position: relative;
+  }
+
+  .dropdown-container .select input {
+    padding: 5px;
+    font-size: 16x;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid red;
+  }
+
+  .dropdown-container .select::after {
+    content: '^';
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+
+  .dropdown-container ul.options {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    border: 1px solid red;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    display: none;
+  }
+
+  .dropdown-container ul.display {
+    display: block;
+  }
+
+
+  .dropdown-container ul.options li a {
+    background-color: gray;
+    padding: 5px;
+    display: block;
+  }
+
+  .dropdown-container ul.options li a:hover,
+  .dropdown-container ul.options li a:focus {
+    background-color: blue;
+  }
+</style>
+
+<body>
+
+  <div class="dropdown-container">
+    <div class="select">
+      <input type="text" placeholder="Type here..." id="input" />
+    </div>
+    <ul class="options" id="dropdown">
+      <li> <a href="#">A</a></li>
+      <li><a href="#">B</a></li>
+      <li> <a href="#">A</a></li>
+      <li><a href="#">B</a></li>
+      <li> <a href="#">A</a></li>
+      <li><a href="#">B</a></li>
+    </ul>
+
+
+  </div>
+
+  <div class="dropdown-container">
+    <div class="select">
+      <button id="input2">Abc</button>
+    </div>
+    <ul class="options" id="dropdown2">
+      <li> <a href="#">A</a></li>
+      <li><a href="#">B</a></li>
+      <li> <a href="#">A</a></li>
+      <li><a href="#">B</a></li>
+      <li> <a href="#">A</a></li>
+      <li><a href="#">B</a></li>
+    </ul>
+
+
+  </div>
+  <script>
+    let count = 0;
+    let select = document.getElementById('input');
+    let dropdown = document.getElementById('dropdown');
+
+    class DropDown {
+      #input;
+      #dropdown;
+      #count;
+      constructor(input, dropdown) {
+        this.#input = input;
+        this.#dropdown = dropdown;
+        this.#count = 0;
+      }
+
+      getChildren = () => {
+        console.log(this.#dropdown.children, 'ddd')
+        return this.#dropdown.children;
+      }
+
+      focusEle = (ele) => {
+        ele.focus();
+      }
+
+      applyHandlers() {
+        this.#input.onclick = () => {
+          this.#dropdown.classList.add('display')
+        }
+
+        this.#dropdown.onclick = (e) => {
+          this.#dropdown.classList.remove('display');
+          console.log(e.target.innerText);
+          this.#input.value = e.target.innerText;
+          this.#input.focus();
+        }
+
+        this.#input.onkeydown = (e) => {
+          if (e.keyCode === 40) {
+            this.#count = 0;
+            this.#dropdown.classList.add('display');
+            const dropdownChild = this.getChildren();
+            console.log(dropdownChild)
+            this.focusEle(dropdownChild[this.#count].children[0])
+          }
+        }
+
+        this.#dropdown.onkeydown = (e) => {
+          const keyCode = e.keyCode;
+          const dropdownChild = this.getChildren();
+
+          if (keyCode === 40) {
+            if (this.#count >= dropdownChild.length - 1) {
+              this.#count = -1;
+            }
+            this.focusEle(dropdownChild[++this.#count].children[0])
+          }
+
+          if (keyCode === 38) {
+            if (this.#count <= 0) {
+              this.#count = dropdownChild.length;
+            }
+            this.focusEle(dropdownChild[--this.#count].children[0])
+            console.log(this.#count)
+          }
+
+        }
+      }
+    }
+
+    let dp = new DropDown(select, dropdown);
+    dp.applyHandlers();
+
+    let select2 = document.getElementById('input2');
+    let dropdown2 = document.getElementById('dropdown2');
+
+    let dp2 = new DropDown(select2, dropdown2);
+    dp2.applyHandlers();
+  </script>
+  <button onclick="getfocus()">Abc</button>
+</body>
+
+</html>
